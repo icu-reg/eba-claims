@@ -1,0 +1,363 @@
+/* Visual redesign. Loaded after the original CSS; remove its link to revert. */
+@font-face {
+  font-family: "DM Sans";
+  src: url("assets/fonts/dm-sans-regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("assets/fonts/dm-sans-semibold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("assets/fonts/dm-sans-bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("assets/fonts/fraunces-medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+/* 1. Tokens: deep purple matched to the offer-comparison reference. */
+:root {
+  --purple: #64277c;
+  --purple2: #431b54;
+  --purple-header: #5f2876;
+  --ink: #261e2b;
+  --muted: #746a79;
+  --line: #ddd5e1;
+  --bg: #f7f5f8;
+  --card: #fffdfa;
+  --soft: #f2eef5;
+  --accent-soft: #eee4f3;
+  --sage: #ece7f2;
+  --sage-ink: #5f2876;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "DM Sans", "Segoe UI", sans-serif;
+  --radius-card: 16px;
+  --radius-control: 8px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-card: 0 12px 36px rgb(67 27 84 / 7%);
+}
+
+/* 2. Typography: editorial headings, clear and readable working text. */
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+h1 {
+  font-size: clamp(48px, 6.7vw, 92px);
+  color: #fff;
+  margin: 0;
+}
+.eyebrow, .role-tag, .badge, .panel h4, .eba-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+.eyebrow {
+  color: var(--purple);
+  opacity: 1;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before { content: ""; width: 26px; height: 2px; background: currentColor; }
+.sub {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 42ch;
+  opacity: 1;
+}
+.role-card h2 { font-size: clamp(30px, 3vw, 40px); color: var(--purple2); margin: 0 0 18px; }
+.role-card p { font-size: 15px; line-height: 1.75; max-width: 43ch; }
+#categoryView > h2, #categoryTitle {
+  font-size: clamp(32px, 3.4vw, 48px) !important;
+  margin: 0 0 18px !important;
+  max-width: 28ch;
+}
+#categoryView > p { line-height: 1.7; max-width: 65ch; margin-bottom: 32px !important; }
+.category h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.45; text-wrap: pretty; }
+.claim-title { font-size: 17px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.55; }
+.panel p { font-size: 15px; line-height: 1.8; color: var(--ink); max-width: 65ch; }
+
+/* 3. Color and 4. spacing: distinct chapters, a consistent 8px rhythm. */
+.wrap { max-width: 1184px; }
+header { background: var(--purple-header); color: #fff; padding: 40px 48px 48px; }
+header .wrap { display: block; }
+header .eyebrow { grid-column: 1 / -1; }
+main.wrap { padding: 48px 0 72px; width: calc(100% - 96px); flex: 1; }
+.role-grid { max-width: none; margin: 24px 0 0; gap: 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#roleView::before {
+  content: "Choose your group";
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.topbar { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--line); gap: 16px; }
+.topbar .back { justify-self: start; }
+.category-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.claim-list { gap: 16px; }
+.cols { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+.claim-main { padding: 24px; }
+.eba-links { padding: 24px; background: var(--card); }
+
+/* 5. Components: precise controls and generous, readable panels. */
+.resource-strip { background: var(--purple2); border: 0; padding: 0; flex-shrink: 0; }
+.resources { padding: 20px 0; width: calc(100% - 96px); gap: 12px; }
+.resource-btn {
+  min-height: 44px;
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgb(247 244 238 / 28%);
+  background: transparent;
+  color: var(--bg);
+  border-radius: var(--radius-control);
+}
+.resource-btn.primary { background: var(--bg); border-color: var(--bg); color: var(--purple2); }
+.resource-btn:hover { background: rgb(247 244 238 / 10%); border-color: rgb(247 244 238 / 65%); color: var(--bg); }
+.resource-btn.primary:hover { background: #eee4f3; border-color: #eee4f3; color: var(--purple2); }
+.role-card {
+  position: relative;
+  min-width: 0;
+  padding: 36px 36px 32px;
+  min-height: 180px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--card);
+  box-shadow: 0 3px 12px rgb(67 27 84 / 2%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.role-card::after {
+  content: "Explore claims  ↗";
+  display: block;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 28px;
+  color: var(--purple);
+  font-size: 13px;
+  font-weight: 700;
+}
+.role-card p { padding-bottom: 24px; }
+.role-card:hover { border-color: #b79ac6; box-shadow: var(--shadow-card); transform: translateY(-4px); }
+.role-tag { border-radius: 6px; font-size: 10px; letter-spacing: 0.045em; background: var(--accent-soft); color: var(--purple); padding: 7px 10px; margin-bottom: 28px; }
+.role-card[data-role="Specialist"] .role-tag { background: var(--sage); color: var(--sage-ink); }
+.badge { grid-column: 2; border-radius: 0; background: transparent; color: var(--purple2); font-family: var(--font-display); font-size: clamp(30px, 3.3vw, 44px); font-weight: 500; line-height: 1.1; margin: 0; padding: 0; text-align: center; }
+.back { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-body); font-size: 13px; font-weight: 700; position: relative; }
+.back::after { content: ""; position: absolute; bottom: 8px; left: 0; right: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 220ms var(--ease-out); }
+.back:hover::after { transform: scaleX(1); }
+.category {
+  position: relative;
+  min-width: 0;
+  min-height: 152px;
+  padding: 24px 48px 24px 24px;
+  border-radius: 12px;
+  border-color: var(--line);
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+.category::after { content: "↗"; position: absolute; top: 20px; right: 20px; color: var(--purple); font-size: 20px; }
+.category span { font-size: 12px; }
+.category:hover { border-color: #b79ac6; background: #faf7fc; transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.search {
+  min-height: 56px;
+  padding: 16px 20px 16px 48px;
+  background-color: var(--card);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%236c6267' stroke-width='1.5' viewBox='0 0 24 24'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='m16 16 4 4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 18px center;
+  border-color: var(--line);
+  border-radius: var(--radius-control);
+  font-size: 15px;
+  color: var(--ink);
+  margin: 8px 0 12px;
+}
+.search::placeholder { color: var(--muted); opacity: 1; }
+.search:focus { outline: 0; border-color: var(--purple); box-shadow: 0 0 0 4px rgb(100 39 124 / 10%); }
+.count { margin-bottom: 24px; font-size: 12px; }
+.claim { background: var(--card); border-radius: 12px; border-color: var(--line); }
+.claim:hover { border-color: #bea8ca; box-shadow: 0 4px 18px rgb(67 27 84 / 3%); }
+.claim.open { border-color: #b397c1; box-shadow: var(--shadow-card); }
+.claim-toggle { background: var(--card); padding: 24px; align-items: center; gap: 24px; }
+.claim-toggle:hover { background: #faf7fc; }
+.claim.open .claim-toggle { background: #f2ebf6; }
+.chevron { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid #d1bedb; border-radius: 50%; font-size: 22px; line-height: 1; font-weight: 400; }
+.claim-body { border-color: var(--line); }
+.panel { background: var(--soft); padding: 24px; border-radius: 8px; min-width: 0; }
+.panel + .panel { background: #ece7f2; }
+.panel h4 { font-size: 10px; letter-spacing: 0.08em; line-height: 1.6; margin-bottom: 14px; }
+.panel + .panel h4 { color: var(--sage-ink); }
+.rationale-note { line-height: 1.65; margin-top: 20px; font-size: 11px; }
+.eba-title { font-size: 10px; letter-spacing: 0.09em; line-height: 1.7; margin-bottom: 16px; }
+.clause { grid-template-columns: minmax(110px, 160px) minmax(0, 1fr); gap: 24px; padding: 18px 0; border-color: var(--line); }
+.clause-num { background: var(--accent-soft); color: var(--purple); border-radius: 6px; font-size: 11px; font-weight: 700; padding: 8px 10px; width: fit-content; }
+.clause-num-link { min-height: 44px; width: fit-content; }
+.clause-open { font-size: 11px; margin-top: 8px; }
+.clause-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.clause-note { color: var(--muted); font-size: 13px; line-height: 1.75; max-width: 75ch; }
+.source-note { margin-top: 40px; padding: 24px; border: 0; border-left: 2px solid #bba2c8; border-radius: 0 8px 8px 0; background: var(--soft); font-size: 12px; line-height: 1.9; }
+.source-note strong { display: inline-block; color: var(--ink); margin-bottom: 8px; font-size: 13px; }
+button:focus-visible, a:focus-visible, .role-card:focus-visible, .category:focus-visible {
+  outline: 3px solid #86529d;
+  outline-offset: 4px;
+}
+.role-card:active, .category:active, .resource-btn:active { transform: translateY(0) scale(0.99); }
+.claim-toggle:active { background: var(--accent-soft); }
+::selection { background: #e0cdea; color: var(--purple2); }
+
+/* 6. Atmosphere: subtle purple light and texture without obscuring controls. */
+body {
+  background: radial-gradient(ellipse at 88% 0%, rgb(180 144 199 / 12%), transparent 55%), var(--bg);
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+}
+
+/* 7. Motion: CSS-only entry and tactile feedback; content is always available. */
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+header .eyebrow { animation: arrive 550ms var(--ease-out) both; }
+header h1 { animation: arrive 650ms 70ms var(--ease-out) both; }
+header .sub { animation: arrive 650ms 140ms var(--ease-out) both; }
+.view.active { animation: arrive 500ms var(--ease-out) both; }
+.role-card, .category, .resource-btn, .claim, .search, .clause-num-link .clause-num {
+  transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out), background-color 220ms var(--ease-out), border-color 220ms var(--ease-out), color 220ms var(--ease-out);
+}
+.claim-toggle { transition: background-color 200ms var(--ease-out); }
+.chevron { transition: transform 220ms var(--ease-out); }
+
+/* Responsive layouts preserve every view's original visibility rules. */
+@media (max-width: 1000px) {
+  header { padding: 40px 32px 48px; }
+  header .wrap { gap: 24px 32px; }
+  main.wrap, .resources { width: calc(100% - 64px); }
+  .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .role-card { padding: 28px; }
+}
+@media (max-width: 820px) {
+  header .wrap { grid-template-columns: 1fr; gap: 24px; }
+  h1 { font-size: clamp(48px, 8vw, 68px); }
+  .sub { max-width: 62ch; font-size: 16px; }
+  .cols { grid-template-columns: 1fr; gap: 16px; }
+  .role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .role-card h2 { font-size: 30px; }
+  .role-card { padding: 28px 24px; }
+  .clause { grid-template-columns: minmax(110px, 140px) minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  header { padding: 32px 24px 36px; }
+  header .wrap { gap: 20px; }
+  .eyebrow { font-size: 10px; letter-spacing: 0.1em; gap: 8px; }
+  .eyebrow::before { width: 18px; }
+  h1 { font-size: clamp(44px, 11.8vw, 64px); }
+  .sub { font-size: 15px; line-height: 1.7; }
+  main.wrap, .resources { width: calc(100% - 48px); }
+  main.wrap { padding: 32px 0 48px; }
+  .resources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 18px 0; }
+  .resource-btn { justify-content: center; padding: 10px 8px; font-size: 11px; }
+  .resource-btn.primary { grid-column: 1 / -1; font-size: 12px; }
+  .role-grid, .category-grid { grid-template-columns: 1fr; gap: 16px; }
+  .role-card { padding: 28px; }
+  .role-tag { margin-bottom: 24px; }
+  .role-card h2 { font-size: 32px; }
+  .role-card p { font-size: 14px; padding-bottom: 16px; }
+  .role-card::after { padding-top: 16px; }
+  .topbar { grid-template-columns: 1fr; gap: 16px; margin-bottom: 24px; padding-bottom: 24px; }
+  .badge { grid-column: 1; font-size: 32px; padding: 0; }
+  .back { font-size: 12px; }
+  #categoryView > h2, #categoryTitle { font-size: 32px !important; }
+  .category { min-height: 120px; }
+  .claim-toggle { padding: 20px 16px; gap: 12px; }
+  .claim-title { font-size: 15px; }
+  .chevron { width: 28px; height: 28px; }
+  .claim-main, .eba-links { padding: 16px; }
+  .panel { padding: 20px; }
+  .panel p { font-size: 14px; }
+  .clause { grid-template-columns: 1fr; gap: 16px; }
+  .source-note { padding: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .role-card:hover, .category:hover, .role-card:active, .category:active, .resource-btn:active { transform: none; }
+}
+
+/* Phone-first reading and touch targets. */
+.role-card, .category { font: inherit; color: var(--ink); text-align: left; width: 100%; }
+.plain-english { margin-top: 24px; padding-top: 20px; border-top: 1px solid #d8c9e0; }
+.plain-english h4 { color: var(--purple); font-size: 12px; margin-bottom: 8px; }
+.summary-note { display: block; margin-top: 10px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.claim-title, .panel p, .clause-note, .clause-title { overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  header { padding: 24px 20px; }
+  h1 { font-size: clamp(38px, 10vw, 52px); }
+  main.wrap, .resources { width: calc(100% - 32px); }
+  main.wrap { padding: 24px 0 36px; }
+  .role-grid { margin-top: 16px; gap: 12px; }
+  .role-card { padding: 22px; min-height: 190px; }
+  .role-tag { margin-bottom: 14px; }
+  .role-card h2 { font-size: 30px; margin-bottom: 8px; }
+  .role-card p { font-size: 15px; padding-bottom: 0; }
+  .role-card::after { padding-top: 18px; }
+  .topbar { gap: 8px; padding-bottom: 16px; margin-bottom: 20px; }
+  .badge { text-align: left; font-size: 28px; }
+  .back { font-size: 14px; }
+  #categoryView > h2, #categoryTitle { font-size: 30px !important; }
+  .category-grid { gap: 10px; }
+  .category { min-height: 100px; padding: 18px 44px 18px 18px; gap: 8px; }
+  .category h3 { font-size: 17px; }
+  .category span, .count { font-size: 13px; }
+  .search { font-size: 16px; min-height: 52px; }
+  .claim-title { font-size: 16px; line-height: 1.5; }
+  .claim-main, .eba-links { padding: 14px; }
+  .panel { padding: 16px; }
+  .panel p { font-size: 16px; line-height: 1.7; }
+  .panel h4, .eba-title { font-size: 12px; }
+  .rationale-note, .clause-open { font-size: 12px; }
+  .clause-note { font-size: 14px; line-height: 1.65; }
+  .clause-title { font-size: 15px; }
+  .resources { grid-template-columns: 1fr; }
+  .resource-btn { font-size: 13px; min-height: 48px; }
+  .source-note { margin-top: 24px; font-size: 13px; padding: 16px; }
+}
